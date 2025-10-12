@@ -6,39 +6,97 @@
 /*   By: yuliano <yuliano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:06:03 by yuliano           #+#    #+#             */
-/*   Updated: 2025/10/12 19:38:13 by yuliano          ###   ########.fr       */
+/*   Updated: 2025/10/13 00:14:35 by yuliano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
 
-class MegaPhone
+/*
+class Megaphone
 {
 	private:
-		std::string str;
+		const char *str;
 	public:
-		MegaPhone(const std::string &s);
-		std::string get_mega_phone();
-		~MegaPhone();
+		Megaphone(const char *s);
+		const char  *get_mega_phone();
+		~Megaphone();
 };
 
-MegaPhone::MegaPhone(const std::string &s) : str(s) {}
-std::string MegaPhone::get_mega_phone()
+Megaphone::Megaphone(const char *s) : str(s) {}
+
+const char *Megaphone:: Megaphone::get_mega_phone()
 {
 	return (str);
 }
 
-MegaPhone::~MegaPhone() {}
+Megaphone::~Megaphone() {}
 
 int main(int argc, char *argv[])
 {
 	(void)argc;
-	MegaPhone p(argv[1]);
+	Megaphone p(argv[1]);
 	
-	std::string p1= p.get_mega_phone();
+	char *p1 = (char *) p.get_mega_phone();
 	std::cout<<p1<<std::endl;
-	p1[0] = 'a';
-	std::cout<<p1<<std::endl;
+	
+	return (0);
+}
+*/
+
+
+class Megaphone
+{
+	private:
+		std::string str;
+	public:
+		Megaphone();
+		void set_mega_phone(const std::string _str);
+		std:: string get_mega_phone();
+		~Megaphone();
+};
+
+Megaphone::Megaphone()
+{
+	str = "";
+}
+
+std::string Megaphone:: Megaphone::get_mega_phone()
+{
+	return (str);
+}
+
+void Megaphone::set_mega_phone(const std::string _str)
+{
+	str = _str;
+}
+
+Megaphone::~Megaphone() {}
+
+int main(int argc, char *argv[])
+{
+	int i;
+
+	if (argc == 1)
+		std::cout<<"Error"<<std::endl;
+	else
+	{
+		Megaphone *megaphone = new Megaphone[argc];
+		i = 1;
+		while(i < argc)
+		{
+			megaphone[i].set_mega_phone(argv[i]);
+			i++;
+		}
+		i = 1;
+		while(i < argc)
+		{
+			std::cout<<megaphone[i].get_mega_phone()<<std::endl;
+			i++;
+		}
+		delete [] megaphone;
+	}
+	
 	return (0);
 }
