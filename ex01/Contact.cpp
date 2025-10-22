@@ -6,7 +6,7 @@
 /*   By: yuliano <yuliano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 18:18:39 by yuliano           #+#    #+#             */
-/*   Updated: 2025/10/14 20:54:47 by yuliano          ###   ########.fr       */
+/*   Updated: 2025/10/22 19:38:00 by yuliano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,38 @@
 
 Contact::Contact()
 {
-	strcpy(name, " ");
-	strcpy(last_name, " ");
-	strcpy(number, " ");
+	name = "";
+	last_name = "";
+	number = "";
 }
 
-Contact::Contact(char _name[10], char _last_name[10], char _number[10])
+
+void Contact::set_name(const std::string &_name)
 {
-	strcpy(name,_name);
-	strcpy(last_name, _last_name);
-	strcpy(number, _number);
+	name = _name;
 }
 
-void Contact::set_name(char _name[10])
+void Contact::set_lastname(const std::string &_last_name)
 {
-	strcpy(name,_name);
+	last_name = _last_name;
 }
 
-void Contact::set_lastname(char _last_name[10])
+void Contact::set_number(const std::string &_number)
 {
-	strcpy(last_name,_last_name);
+	number = _number;
 }
 
-void Contact::set_number(char _number[10])
-{
-	strcpy(number,_number);
-}
-
-char* Contact:: get_name()
+std::string Contact:: get_name() const
 {
 	return (name);
 }
 
-char* Contact:: get_last_name()
+std::string Contact:: get_last_name() const
 {
 	return (last_name);
 }
 
-char* Contact:: get_number()
+std::string Contact:: get_number() const
 {
 	return (number);
 }

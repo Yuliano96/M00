@@ -6,7 +6,7 @@
 /*   By: yuliano <yuliano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 18:36:25 by yuliano           #+#    #+#             */
-/*   Updated: 2025/10/14 20:47:35 by yuliano          ###   ########.fr       */
+/*   Updated: 2025/10/22 19:44:27 by yuliano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ class PhoneBook
 		int		index;
 	public:
 		PhoneBook();
-		void add_phone_book(char _name[10], char _last_name[10], char _number[10]);
+		void add_phone_book(const std::string &_name, const std::string &last_name, \
+			const std::string &_number);
 		int get_index();
 		void print_contact(int index);
 		~PhoneBook();
