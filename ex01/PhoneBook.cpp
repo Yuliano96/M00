@@ -6,7 +6,7 @@
 /*   By: yuliano <yuliano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 18:44:23 by yuliano           #+#    #+#             */
-/*   Updated: 2025/10/22 21:51:01 by yuliano          ###   ########.fr       */
+/*   Updated: 2025/10/24 07:33:29 by yuliano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@ PhoneBook::PhoneBook()
 void PhoneBook::add_phone_book(const std::string &_name, const std::string &last_name,\
 		const std::string &_number)
 {
-	if (index == (Max_contact - 1))
-		index = (Max_contact - 1);
 	contact[index].set_name(_name);
 	contact[index].set_lastname(last_name);
 	contact[index].set_number(_number);
-	index ++;
+	index = (index + 1) % Max_contact;
 }
 
 int PhoneBook::get_index()
