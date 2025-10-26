@@ -3,32 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuliano <yuliano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ypacileo <ypacileo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 18:58:16 by yuliano           #+#    #+#             */
-/*   Updated: 2025/10/24 07:52:40 by yuliano          ###   ########.fr       */
+/*   Updated: 2025/10/26 15:40:00 by ypacileo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+
 #include "PhoneBook.hpp"
-
-
-void	add_contact(std::string &name, std::string &last_name, std::string &number)
-{
-	std::cout<<"enter the name : ";
-	std::getline(std::cin, name);
-	std::cout<<"enter last name: ";
-	std::getline(std::cin, last_name);
-	std::cout<<"enter the phone number: ";
-	std::getline(std::cin, number);
-	
-}
+#include "tools.hpp"
 
 int main()
 {
-	//std::string options[] = {"ADD","SEARCH", "EXIT"};
-	//int length = sizeof(options) / sizeof(options[0]);
 	PhoneBook phonebook;
 	std::string command;
 	std::string name;
@@ -36,8 +23,10 @@ int main()
 	std::string number;
 	
 	std::cout<<"\tEnter ADD, SEARCH or EXIT"<<std::endl;
+	
 	while(1)
 	{
+		std::cout<<"> ";
 		std::getline(std::cin, command);
 		if (command == "ADD")
 		{
@@ -45,19 +34,19 @@ int main()
 			phonebook.add_phone_book(name,last_name, number);
 			continue;
 		}
-		if (command == "print")
+		else if (command == "SEARCH")
 		{
-			int i = 0;
-			while(i < Max_contact)
-			{
-				phonebook.print_contact(i);
-				i++;
-			}
+			search_contact(phonebook);
 			continue;
+		}
+		else if (command == "EXIT")
+		{
+			break;
 		}
 		else
 		{
 			std::cout<<"command error"<<std::endl;
+			continue ;
 		}
 		
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuliano <yuliano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ypacileo <ypacileo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 18:44:23 by yuliano           #+#    #+#             */
-/*   Updated: 2025/10/24 07:33:29 by yuliano          ###   ########.fr       */
+/*   Updated: 2025/10/26 13:17:25 by ypacileo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 PhoneBook::PhoneBook()
 {
 	index = 0;
+	size = 0;
 }
 
 void PhoneBook::add_phone_book(const std::string &_name, const std::string &last_name,\
@@ -26,11 +27,18 @@ void PhoneBook::add_phone_book(const std::string &_name, const std::string &last
 	contact[index].set_lastname(last_name);
 	contact[index].set_number(_number);
 	index = (index + 1) % Max_contact;
+	if (size < Max_contact)
+		size++;
 }
 
 int PhoneBook::get_index()
 {
 	return (index);
+}
+
+int PhoneBook::get_size()
+{
+	return (size);
 }
 
 void PhoneBook::print_contact(int index)

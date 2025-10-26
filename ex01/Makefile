@@ -3,7 +3,7 @@ CXX = c++
 CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
 
 NAME = phoneBook
-SRC = Contact.cpp PhoneBook.cpp main.cpp
+SRC = Contact.cpp PhoneBook.cpp main.cpp tools.cpp
 OBJ = $(SRC:.cpp=.o)
 
 .PHONY: all clean fclean re

@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   tools.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ypacileo <ypacileo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/14 18:36:25 by yuliano           #+#    #+#             */
-/*   Updated: 2025/10/26 13:49:28 by ypacileo         ###   ########.fr       */
+/*   Created: 2025/10/26 13:47:44 by ypacileo          #+#    #+#             */
+/*   Updated: 2025/10/26 15:40:50 by ypacileo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PhoneBook_H
-#define PhoneBook_H
+# ifndef TOOLS_H
+# define TOOLS_H
 
-# define Max_contact 8
-#include "Contact.hpp"
+#include <iostream>
 #include <cstring>
+#include "PhoneBook.hpp"
 
-class PhoneBook
-{
-	private:
-		Contact contact[Max_contact];
-		int		index;
-		int		size;
-	public:
-		PhoneBook();
-		void add_phone_book(const std::string &_name, const std::string &last_name, \
-			const std::string &_number);
-		int get_index();
-		int get_size();
-		void print_contact(int index);
-		~PhoneBook();
-	
-};
+void	add_contact(std::string &name, std::string &last_name, std::string &number);
+int		str_isdigit(std::string &str);
+int		str_isalpha(std::string &str);
+void	search_contact(PhoneBook &phonebook);
 
 #endif
