@@ -6,78 +6,67 @@
 /*   By: yuliano <yuliano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:06:03 by yuliano           #+#    #+#             */
-/*   Updated: 2025/10/13 21:25:41 by yuliano          ###   ########.fr       */
+/*   Updated: 2025/10/28 21:27:05 by yuliano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/11 23:09:00 by iubieta-          #+#    #+#             */
+/*   Updated: 2025/02/11 23:32:26 by iubieta-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+// Ejemplo de funcionamiento:
+// $>./megaphone "shhhhh... I think the students are asleep..."
+// SHHHHH... I THINK THE STUDENTS ARE ASLEEP...
+// $>./megaphone Damnit " ! " "Sorry students, I thought this thing was off."
+// DAMNIT ! SORRY STUDENTS, I THOUGHT THIS THING WAS OFF.
+// $>./megaphone
+// * LOUD AND UNBEARABLE FEEDBACK NOISE *
+
 #include <iostream>
-#include <string>
 #include <cctype>
 
-
-class Megaphone
+std::string trim(const std::string& str) 
 {
-	private:
-		std::string str;
-	public:
-		Megaphone();
-		void set_mega_phone(const std::string &xstr);
-		void convert_to_uppercase();
-		std:: string get_mega_phone() const;
-		~Megaphone();
-};
+	size_t first;
+	size_t last;
 
-Megaphone::Megaphone()
-{
-	str = "";
+    first = str.find_first_not_of(" \t\n\r\f\v");
+    if (first == std::string::npos) return "";
+
+    last = str.find_last_not_of(" \t\n\r\f\v");
+    return str.substr(first, (last - first + 1));
 }
 
-std::string Megaphone::get_mega_phone() const
+int	main(int argc, char **argv) 
 {
-	return (str);
-}
+	std::string str;
+	unsigned char uc;
 
-void Megaphone::convert_to_uppercase()
-{
-	for(size_t i = 0; i < str.size(); i++)
+	if (argc == 1) 
 	{
-		str[i] = std::toupper(str[i]);
+		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *"<<std::endl;
+		return 0;
 	}
-}
 
-void Megaphone::set_mega_phone(const std::string &_str)
-{
-	str = _str;
-}
-
-Megaphone::~Megaphone() 
-{
-}
-
-
-int main(int argc, char *argv[])
-{
-	if (argc == 1)
-		std::cout<<"* LOUD AND UNBEARABLE FEEDBACK NOISE *"<<std::endl;
-	else
+	for (int i = 1; i < argc; i++) 
 	{
-		Megaphone *megaphone = new Megaphone[argc - 1];
-        
-        // Llenar los objetos
-        for (int i = 1; i < argc; i++)
-        {
-            megaphone[i - 1].set_mega_phone(argv[i]);
-        }
-        
-        // Convertir y mostrar
-        for (int i = 0; i < (argc - 1); i++)
-        {
-            megaphone[i].convert_to_uppercase();
-            std::cout << megaphone[i].get_mega_phone() <<" ";
-        }
-        std::cout<<std::endl;
-        delete[] megaphone;
+		str = argv[i];
+		str = trim(str);
+		for (size_t j = 0; j < str.size(); j++) 
+		{
+			uc = static_cast<unsigned char>(str[j]);
+			std::cout << static_cast<char>(std::toupper(uc));
+
+		}
+		std::cout << " ";
 	}
-	
+	std::cout << '\n';
 	return (0);
 }
