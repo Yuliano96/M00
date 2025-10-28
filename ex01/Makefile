@@ -1,17 +1,19 @@
-# ...existing code...
-CXX = c++
-CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
+# Makefile - ex01 PhoneBook (C++98)
+CXX      := c++
+CXXFLAGS := -Wall -Wextra -Werror -std=c++98
+NAME     := phonebook
 
-NAME = phoneBook
-SRC = Contact.cpp PhoneBook.cpp main.cpp tools.cpp
-OBJ = $(SRC:.cpp=.o)
+SRC := main.cpp \
+       Contact.cpp \
+       PhoneBook.cpp \
+       tools.cpp
 
-.PHONY: all clean fclean re
+OBJ := $(SRC:.cpp=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJ)
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
@@ -23,4 +25,5 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-# ...existing code...
+
+.PHONY: all clean fclean re
