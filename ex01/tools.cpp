@@ -6,99 +6,36 @@
 /*   By: yuliano <yuliano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 13:44:59 by ypacileo          #+#    #+#             */
-/*   Updated: 2025/10/28 07:13:48 by yuliano          ###   ########.fr       */
+/*   Updated: 2025/10/28 20:32:20 by yuliano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-#include "tools.hpp"
-#include <ctype.h>
-#include "PhoneBook.hpp"
-
-
-int str_isdigit(std::string &str)
-{
-	for (size_t i = 0; i < str.size(); i++)
-	{
-		if (!isdigit(str[i]))
-			return (0);
-	}
-	return (1);
-}
-
-int str_isalpha(std::string &str)
-{
-	for (size_t i = 0; i < str.size(); i++)
-	{
-		if (!isalpha(str[i]))
-			return (0);
-	}
-	return (1);
-}
-
-void	add_contact(std::string &name, std::string &last_name, std::string &number)
-{
-
-	while(name.empty() || !str_isalpha(name))
-	{
-		std::cout<<"enter the name : ";
-		std::getline(std::cin, name);
-	}		
-	
-	while(last_name.empty() || !str_isalpha(last_name))
-	{
-		std::cout<<"enter last name : ";
-		std::getline(std::cin, last_name);
-	}	
-	
-	while(number.empty() || !str_isdigit(number))
-	{
-		std::cout<<"enter the phone number: ";
-		std::getline(std::cin, number);
-	}	
-	
-}
-
-void	search_contact(PhoneBook &phonebook)
-{
-	int i = 0;
-	while(1)
-	{
-		std::cout<<"enter the index :";
-		std::cin >> i;
-		std::cin.ignore();
-		if (i <= 0 || i > phonebook.get_size())
-		{
-			std::cout<<"incorrect index"<<std::endl;
-			continue ;
-		}
-		else
-			break;
-	}
-	phonebook.print_contact(i - 1);
-}*/
 
 #include "tools.hpp"
 #include <iostream>
 
-bool is_all_digits_or_sign(const std::string &s) 
-{
-    if (s.empty())
-		return false;
-    for (std::size_t i = 0; i < s.size(); ++i) {
-        char c = s[i];
-        if (!(c == '+' || c == '-' || (c >= '0' && c <= '9')))
-            return false;
-    }
-    return true;
-}
-
 bool number_of_digits(const std::string &s)
 {
-	if (s.size() != 9)
-		return (false);
-	return (true);
+
+    if (s.size() == 9)
+    {
+        for (size_t i = 0; i < s.size(); ++i)
+            if (s[i] < '0' || s[i] > '9')
+                return false;
+        return true;
+    }
+
+    else if (s.size() == 12 && s.substr(0, 3) == "+34")
+    {
+        for (size_t i = 3; i < s.size(); ++i)
+            if (s[i] < '0' || s[i] > '9')
+                return false;
+        return true;
+    }
+
+    return false;
 }
+
 
 std::string prompt_non_empty(const std::string &label) 
 {
@@ -117,18 +54,60 @@ std::string prompt_non_empty(const std::string &label)
     }
 }
 
-bool is_valid_phone(const std::string &s) 
+
+// Mapea secuencias UTF-8 comunes en español a ASCII.
+// Maneja: áéíóúüñ (y mayúsculas).
+// Estrategia: recorre bytes; si detecta 0xC3, mira el siguiente y sustituye.
+std::string normalize_spanish_basic(const std::string &s) 
 {
-	if (is_all_digits_or_sign(s) && number_of_digits(s))
-		return true;
-	return false;
+    std::string out;
+    for (std::size_t i = 0; i < s.size(); ++i) {
+        unsigned char c = static_cast<unsigned char>(s[i]);
+
+        // UTF-8 dos bytes que empiezan por 0xC3
+        if (c == 0xC3 && i + 1 < s.size()) {
+            unsigned char d = static_cast<unsigned char>(s[i + 1]);
+
+            // minúsculas
+            if (d == 0xA1) { out += 'a'; i++; continue; } // á
+            if (d == 0xA9) { out += 'e'; i++; continue; } // é
+            if (d == 0xAD) { out += 'i'; i++; continue; } // í
+            if (d == 0xB3) { out += 'o'; i++; continue; } // ó
+            if (d == 0xBA) { out += 'u'; i++; continue; } // ú
+            if (d == 0xBC) { out += 'u'; i++; continue; } // ü
+            if (d == 0xB1) { out += 'n'; i++; continue; } // ñ
+
+            // mayúsculas
+            if (d == 0x81) { out += 'A'; i++; continue; } // Á
+            if (d == 0x89) { out += 'E'; i++; continue; } // É
+            if (d == 0x8D) { out += 'I'; i++; continue; } // Í
+            if (d == 0x93) { out += 'O'; i++; continue; } // Ó
+            if (d == 0x9A) { out += 'U'; i++; continue; } // Ú
+            if (d == 0x9C) { out += 'U'; i++; continue; } // Ü
+            if (d == 0x91) { out += 'N'; i++; continue; } // Ñ
+
+            // Si era 0xC3 pero no lo mapeamos, descartamos ambos o
+            // solo copiamos el segundo? Mejor descartarlos para no “romper” ancho.
+            // Avanzamos i para saltar el segundo byte.
+            i++;
+            continue;
+        }
+
+        // ASCII normal, lo dejamos tal cual
+        if (c < 128) {
+            out += static_cast<char>(c);
+        }
+        // Otros bytes no-ASCII (multibyte de otro rango): los descartamos.
+    }
+    return out;
 }
+
 
 bool str_isalpha(std::string &str)
 {
 	for (size_t i = 0; i < str.size(); i++)
 	{
-		if (!isalpha(str[i]))
+		if (!isalpha(str[i]) && str[i] != ' ')
 			return (false);
 	}
 	return (true);
@@ -144,20 +123,35 @@ Contact build_contact_interactively()
 		v = prompt_non_empty("Name: ");
 		if (v.empty())
 			return Contact();
-		if (str_isalpha(v)) break;
+		v = normalize_spanish_basic(v);
+		if (str_isalpha(v))
+				break;
         std::cout << "invalid." << std::endl;
 	}
-    
     c.set_first_name(v);
-
-    v = prompt_non_empty("Surnames: ");
-    if (v.empty())
-		return Contact();
+	
+	while(true)
+	{
+		v = prompt_non_empty("Surnames: ");
+		if (v.empty())
+			return Contact();
+		v = normalize_spanish_basic(v);
+		if (str_isalpha(v))
+			break;
+        std::cout << "invalid." << std::endl;
+	}
+	
     c.set_last_name(v);
-
-    v = prompt_non_empty("Nickname: ");
-    if (v.empty())
-		return Contact();
+	while(true)
+	{
+		v = prompt_non_empty("Nickname: ");
+		if (v.empty())
+			return Contact();
+		v = normalize_spanish_basic(v);
+		if (str_isalpha(v))
+			break;
+        std::cout << "Invalid nickname. Use only letters A-Z." << std::endl;
+	}
     c.set_nickname(v);
 
     while (true) 
@@ -166,12 +160,13 @@ Contact build_contact_interactively()
         if (v.empty())
 			return Contact();
         
-        if (is_valid_phone(v)) break;
+        if (number_of_digits(v)) break;
         std::cout << "Invalid phone number." << std::endl;
     }
     c.set_phone_number(v);
 
     v = prompt_non_empty("Darkest secret:");
+	v = normalize_spanish_basic(v);
     if (v.empty()) 
 		return Contact();
     c.set_darkest_secret(v);

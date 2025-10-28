@@ -6,64 +6,9 @@
 /*   By: yuliano <yuliano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 18:44:23 by yuliano           #+#    #+#             */
-/*   Updated: 2025/10/28 07:02:23 by yuliano          ###   ########.fr       */
+/*   Updated: 2025/10/28 20:30:51 by yuliano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*#include "PhoneBook.hpp"
-#include<iostream>
-#include <iomanip>
-
-PhoneBook::PhoneBook()
-{
-	index = 0;
-	size = 0;
-}
-
-void PhoneBook::add_phone_book(const std::string &_name, const std::string &last_name,\
-		const std::string &_number)
-{
-	contact[index].set_name(_name);
-	contact[index].set_lastname(last_name);
-	contact[index].set_number(_number);
-	index = (index + 1) % Max_contact;
-	if (size < Max_contact)
-		size++;
-}
-
-int PhoneBook::get_index()
-{
-	return (index);
-}
-
-int PhoneBook::get_size()
-{
-	return (size);
-}
-
-void PhoneBook::print_contact(int index)
-{
-	std::string aux_name = contact[index].get_name();
-	std::string aux_lastname = contact[index].get_last_name();
-	std::string aux_number = contact[index].get_number();
-	
-	if (aux_name.size() >= 10)
-		aux_name.insert(9, ".");
-	if (aux_lastname.size() >= 10)
-		aux_lastname.insert(9, ".");
-	if(aux_number.size() >= 10)
-		aux_number.insert(9, ".");
-	
-	std::cout << std::setw(10) << index + 1 <<"|";
-	std::cout<<std::setw(10)<<aux_name.substr(0, 10)<<"|";
-	std::cout<<std::setw(10)<<aux_lastname.substr(0, 10)<<"|";
-	std::cout<<std::setw(10)<<aux_number.substr(0, 10)<<"|"<<std::endl;
-}
-
-PhoneBook::~PhoneBook()
-{
-	
-}*/
 
 #include "PhoneBook.hpp"
 #include "tools.hpp"
@@ -97,7 +42,7 @@ void PhoneBook::print_table() const
     std::cout << std::setw(10) << "Index"   << "|"
               << std::setw(10) << "Name"    << "|"
               << std::setw(10) << "LastName"<< "|"
-              << std::setw(10) << "Nick"    << std::endl;
+              << std::setw(10) << "Nickname"    << std::endl;
 
     for (int i = 0; i < size; ++i) 
 	{
@@ -134,7 +79,7 @@ void PhoneBook::search_contact() const
     print_table();
 
     int idx;
-    if (!read_index_in_range("Index to display: ", 0, size - 1, idx)) {
+    if (!read_index_in_range("Index to display: ", 1, size, idx)) {
         // EOF o entrada abortada
         return ;
     }

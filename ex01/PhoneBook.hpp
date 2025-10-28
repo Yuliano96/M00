@@ -6,36 +6,10 @@
 /*   By: yuliano <yuliano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 18:36:25 by yuliano           #+#    #+#             */
-/*   Updated: 2025/10/28 06:08:11 by yuliano          ###   ########.fr       */
+/*   Updated: 2025/10/28 20:31:31 by yuliano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-/*#ifndef PhoneBook_H
-#define PhoneBook_H
-
-# define Max_contact 8
-#include "Contact.hpp"
-#include <cstring>
-
-class PhoneBook
-{
-	private:
-		Contact contact[Max_contact];
-		int		index;
-		int		size;
-	public:
-		PhoneBook();
-		void add_phone_book(const std::string &_name, const std::string &last_name, \
-			const std::string &_number);
-		int get_index();
-		int get_size();
-		void print_contact(int index);
-		~PhoneBook();
-	
-};
-
-#endif*/
 
 #ifndef PHONEBOOK_HPP
 #define PHONEBOOK_HPP

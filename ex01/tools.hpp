@@ -6,7 +6,7 @@
 /*   By: yuliano <yuliano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 13:47:44 by ypacileo          #+#    #+#             */
-/*   Updated: 2025/10/28 07:05:02 by yuliano          ###   ########.fr       */
+/*   Updated: 2025/10/28 20:34:47 by yuliano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,12 @@ void	search_contact(PhoneBook &phonebook);
 #include "Contact.hpp"
 #include <string>
 
-// Pide una línea no vacía; devuelve "" si EOF.
+
 std::string prompt_non_empty(const std::string &label);
-
-// Construye un contacto interactivo (todos los campos no vacíos).
-// Si el usuario hace EOF en cualquier momento, devuelve un contacto "vacío".
+std::string normalize_spanish_basic(const std::string &s);
 Contact build_contact_interactively();
-
-// Lee un índice entero dentro de [min_val, max_val]. Devuelve false en EOF.
 bool read_index_in_range(const std::string &label, int min_val, int max_val, int &out_idx);
-
 bool number_of_digits(const std::string &s);
-bool is_all_digits_or_sign(const std::string &s);
 bool str_isalpha(std::string &str);
-// (Opcional) Validación simple para teléfono: solo '+', '-' y dígitos.
-bool is_valid_phone(const std::string &s);
-
 
 #endif
