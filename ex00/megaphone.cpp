@@ -3,23 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuliano <yuliano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ypacileo <ypacileo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:06:03 by yuliano           #+#    #+#             */
-/*   Updated: 2025/11/01 11:23:46 by yuliano          ###   ########.fr       */
+/*   Updated: 2025/11/01 16:20:53 by ypacileo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 23:09:00 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/02/11 23:32:26 by iubieta-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 // Ejemplo de funcionamiento:
 // $>./megaphone "shhhhh... I think the students are asleep..."
@@ -30,7 +20,7 @@
 // * LOUD AND UNBEARABLE FEEDBACK NOISE *
 
 #include <iostream>
-#include <cctype>
+#include <string>
 
 std::string trim(const std::string& str) 
 {
